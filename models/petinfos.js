@@ -32,8 +32,23 @@ module.exports = (sequelize, DataTypes) => {
       UserId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
-
+      ReservationId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: "Reservations",
+          key: "reservationId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
       petName: {
         allowNull: false,
         type: DataTypes.STRING,

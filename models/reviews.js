@@ -30,14 +30,32 @@ module.exports = (sequelize, DataTypes) => {
       UserId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       ReservationId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "Reservations",
+          key: "reservationId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       PetInfoId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "PetInfos",
+          key: "petInfoId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
 
       rating: {
@@ -63,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Review",
+      modelName: "Reviews",
     }
   );
   return Reviews;

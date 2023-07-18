@@ -38,10 +38,22 @@ module.exports = (sequelize, DataTypes) => {
       UserId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "userId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       PetInfoId: {
         allowNull: false,
         type: DataTypes.INTEGER,
+        references: {
+          model: "PetInfos",
+          key: "petInfoId",
+        },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       startDate: {
         allowNull: false,
