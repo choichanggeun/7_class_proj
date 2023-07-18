@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const myPageRouter = require('./mypage.js');
+const myPageRouter = require('./myPage.js');
 const petInfoRouter = require('./petInfo.js');
-const userRouter = require('./users.js');
+const usersRouter = require('./users.js');
 const reviewRouter = require("./review.js");
 const revRouter = require("./reservation.js");
 
-router.use('/review', postRouter);
+router.use('/review', reviewRouter);
 router.use('/petInfo', petInfoRouter);
-router.use('/user', userRouter);
+router.use('/users', usersRouter);
 router.use('/rev', revRouter);
-router.use('/mypage', myPageRouter);
+router.use('/myPage', myPageRouter);
 
 
 
