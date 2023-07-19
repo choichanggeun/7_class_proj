@@ -9,15 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      startDate: {
+      sitterName: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      endDate: {
+      career: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
