@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       return res.status(412).json({ message: '사용자 정보가 변조되어 로그아웃 되었습니다.' });
     }
 
-    // if (!req.session.user) return res.redirect('../');
+  
     next();
   } catch (error) {
     res.status(401).json({
