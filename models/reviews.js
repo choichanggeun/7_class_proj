@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       this.belongsTo(models.PetSitters, {
-        targetKey: 'PetSitterId',
-        foreignKey: 'petSitterId',
+        targetKey: 'petSitterId',
+        foreignKey: 'PetSitterId',
       });
     }
   }

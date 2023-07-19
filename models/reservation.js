@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'PetId',
       });
 
-      this.belongsTo(models.PetSitter, {
+      this.belongsTo(models.PetSitters, {
         targetKey: 'petSitterId',
         foreignKey: 'PetSitterId',
       });
@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: 'PetSitter',
+          model: 'PetSitters',
           key: 'petSitterId',
         },
         onDelete: 'CASCADE',
