@@ -2,9 +2,12 @@ const { Users } = require('../models');
 
 module.exports = async (req, res, next) => {
   try {
-    const user = await Users.findOne({ where: { email: req.session.user.email } });
 
     if (!req.session.user) return res.status(412).json({ message: '로그인이 필요합니다.' });
+
+    const user = await Users.findOne({ where: { email: req.session.user.email } });
+
+    // if (!req.session.user) return res.status(412).json({ message: '로그인이 필요합니다.' });
 
     if (!user) {
       req.session.destroy();

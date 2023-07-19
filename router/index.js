@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const myPageRouter = require("./myPage.js");
+const myPageRouter = require("./mypage.js");
 const petInfoRouter = require("./petInfos.js");
 const usersRouter = require("./users.js");
 const reviewsRouter = require("./reviews.js");
@@ -11,6 +11,6 @@ router.use("/reviews", reviewsRouter);
 router.use("/petInfo", petInfoRouter);
 router.use("/users", usersRouter);
 router.use("/reservation", revRouter);
-router.use("/myPage", myPageRouter);
+router.use("/mypage", myPageRouter);
 
 module.exports = router;
