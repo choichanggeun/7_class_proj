@@ -1,7 +1,7 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Users extends Model {
+  class PetSitters extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,57 +9,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
       this.hasMany(models.Reviews, {
-        sourceKey: "userId",
-        foreignKey: "UserId",
-      });
-
-      this.hasMany(models.PetInfos, {
-        sourceKey: "userId",
-        foreignKey: "UserId",
-      });
-
-      this.hasMany(models.Reservations, {
-        sourceKey: "userId",
-        foreignKey: "UserId",
+        sourceKey: 'petSitterId',
+        foreignKey: 'PetSitterId',
       });
     }
   }
-  Users.init(
+
+  PetSitters.init(
     {
-      userId: {
+      petSitterId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      email: {
+      sitterName: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      nickname: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      password: {
+      career: {
         allowNull: false,
         type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
       },
     },
     {
       sequelize,
-      modelName: "Users",
+      modelName: 'PetSitters',
     }
   );
-  return Users;
+  return PetSitters;
 };
