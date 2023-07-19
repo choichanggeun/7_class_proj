@@ -3,6 +3,12 @@ const app = express();
 const port = 4000;
 
 //dotenv.config();
+require("dotenv").config();
+
+const rdsUsername = process.env.RDS_USERNAME;
+const rdsPassword = process.env.RDS_PASSWORD;
+const rdsHost = process.env.RDS_HOST;
+const rdsPort = process.env.RDS_PORT;
 
 const morgan = require("morgan");
 

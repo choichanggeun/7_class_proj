@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Reviews extends Model {
     /**
@@ -9,16 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "UserId",
+        targetKey: 'userId',
+        foreignKey: 'UserId',
       });
 
       this.belongsTo(models.Reservations, {
-        targetKey: "reservationId",
-        foreignKey: "ReservationId",
+        targetKey: 'reservationId',
+        foreignKey: 'ReservationId',
+      });
+
+      this.belongsTo(models.PetSitters, {
+        targetKey: 'PetSitterId',
+        foreignKey: 'petSitterId',
       });
     }
   }
+
   Reviews.init(
     {
       reviewId: {
@@ -31,31 +37,31 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       ReservationId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Reservations",
-          key: "reservationId",
+          model: 'Reservations',
+          key: 'reservationId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      PetInfoId: {
+      PetSitterId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "PetInfos",
-          key: "petInfoId",
+          model: 'PetSitters',
+          key: 'petSitterId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
 
       rating: {
@@ -81,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Reviews",
+      modelName: 'Reviews',
     }
   );
   return Reviews;

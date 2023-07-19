@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Reviews", {
+    await queryInterface.createTable('Reviews', {
       reviewId: {
         allowNull: false,
         autoIncrement: true,
@@ -13,31 +13,31 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       ReservationId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "Reservations",
-          key: "reservationId",
+          model: 'Reservations',
+          key: 'reservationId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      PetInfoId: {
+      PetSitterId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "PetInfos",
-          key: "petInfoId",
+          model: 'PetSitters',
+          key: 'petSitterId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
 
       rating: {
@@ -63,6 +63,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Reviews");
+    await queryInterface.dropTable('Reviews');
   },
 };

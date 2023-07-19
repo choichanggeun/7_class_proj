@@ -2,8 +2,8 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reservations', {
-      reservationId: {
+    await queryInterface.createTable('Pets', {
+      petId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -19,36 +19,18 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      PetId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Pets',
-          key: 'petId',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      },
-
-      PetSitterId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Pets',
-          key: 'petId',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      },
-      startDate: {
+      petName: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      endDate: {
+      petGender: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-
+      petAge: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -60,6 +42,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Reservations');
+    await queryInterface.dropTable('Pets');
   },
 };
