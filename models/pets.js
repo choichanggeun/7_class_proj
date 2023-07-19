@@ -1,7 +1,7 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class PetInfos extends Model {
+  class Pets extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "UserId",
+        targetKey: 'userId',
+        foreignKey: 'UserId',
       });
 
       this.hasMany(models.Reservations, {
-        sourceKey: "petInfoId",
-        foreignKey: "PetInfoId",
+        sourceKey: 'petId',
+        foreignKey: 'PetId',
       });
     }
   }
-  PetInfos.init(
+  Pets.init(
     {
-      petInfoId: {
+      petId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -33,22 +33,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      ReservationId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: "Reservations",
-          key: "reservationId",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      },
+
       petName: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -72,8 +63,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "PetInfos",
+      modelName: 'Pets',
     }
   );
-  return PetInfos;
+  return Pets;
 };

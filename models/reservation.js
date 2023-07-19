@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Reservations extends Model {
     /**
@@ -11,18 +11,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "UserId",
+        targetKey: 'userId',
+        foreignKey: 'UserId',
       });
 
-      this.belongsTo(models.PetInfos, {
-        targetKey: "petInfoId",
-        foreignKey: "PetInfoId",
+      this.belongsTo(models.Pets, {
+        targetKey: 'petId',
+        foreignKey: 'PetId',
+      });
+
+      this.belongsTo(models.PetSitter, {
+        targetKey: 'petSitterId',
+        foreignKey: 'PetSitterId',
       });
 
       this.hasMany(models.Reviews, {
-        sourceKey: "reservationId",
-        foreignKey: "ReservationId",
+        sourceKey: 'reservationId',
+        foreignKey: 'ReservationId',
       });
     }
   }
@@ -39,35 +44,37 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
-      PetInfoId: {
+      PetId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "PetInfos",
-          key: "petInfoId",
+          model: 'Pets',
+          key: 'petId',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      },
+      PetSitterId: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'PetSitter',
+          key: 'petSitterId',
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       startDate: {
         allowNull: false,
         type: DataTypes.STRING,
       },
       endDate: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      petSitter: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      career: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -82,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Reservations",
+      modelName: 'Reservations',
     }
   );
   return Reservations;
