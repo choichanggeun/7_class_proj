@@ -1,32 +1,26 @@
-const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
 
 module.exports = async (req, res, next) => {
-  const { Authorization } = req.cookies;
-  const [tokenType, token] = (Authorization ?? '').split(' ');
-  if (tokenType !== 'Bearer' || !token) {
-    return res
-      .status(401)
-      .json({ message: '토큰 타입이 일치하지 않거나, 토큰이 존재하지 않습니다.' });
-  }
   try {
-    const decodedToken = jwt.verify(token, 'customized-secret-key');
-    const userId = decodedToken.userId;
-
-    const user = await Users.findOne({ where: { userId } });
 
     if (!req.session.user) return res.status(412).json({ message: '로그인이 필요합니다.' });
 
+    const user = await Users.findOne({ where: { email: req.session.user.email } });
+
+    // if (!req.session.user) return res.status(412).json({ message: '로그인이 필요합니다.' });
+
     if (!user) {
-      return res.status(401).json({ message: '토큰에 해당하는 사용자가 존재하지 않습니다.' });
+      req.session.destroy();
+      return res.status(412).json({ message: '사용자 정보가 변조되어 로그아웃 되었습니다.' });
     }
 
-    res.locals.user = user;
+  
     next();
   } catch (error) {
-    console.error(error);
-    return res.status(401).json({
+    res.status(401).json({
       message: '비정상적인 접근입니다.',
     });
+    // console.log(error);
+    return;
   }
 };

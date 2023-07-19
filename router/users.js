@@ -11,7 +11,7 @@ const {
   editPasswordValidation,
 } = require('../middlewares/Validations/usersValidation');
 const auth = require('../middlewares/auth');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
 router.post('/signin', signInValidation, async (req, res) => {
   try {
