@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
     res.status(401).json({
       message: '비정상적인 접근입니다.',
     });
-    // console.log(error);
+    console.log(error);
     return;
   }
 };
