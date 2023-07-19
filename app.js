@@ -1,21 +1,29 @@
+require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 const app = express();
 const port = 4000;
-
-//dotenv.config();
-require('dotenv').config();
-
-const rdsUsername = process.env.RDS_USERNAME;
-const rdsPassword = process.env.RDS_PASSWORD;
-const rdsHost = process.env.RDS_HOST;
-const rdsPort = process.env.RDS_PORT;
-
+const { SECRET_KEY } = process.env;
+const dotenv = require('dotenv');
+dotenv.config();
 const morgan = require('morgan');
+const cookieParser = require("cookie-parser");
+const indexRouter = require("./router/index.js");
 
-const cookieParser = require('cookie-parser');
-
-const indexRouter = require('./router/index.js');
 app.use(express.json());
+app.use(
+  session({
+    secret: SECRET_KEY,
+    resave: false,
+    rolling: true,
+    saveUninitialized: false,
+    store: new MemoryStore({ checkPeriod: 1000 * 60 * 60 }),
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
