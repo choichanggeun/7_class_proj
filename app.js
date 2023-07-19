@@ -7,12 +7,10 @@ const port = 4000;
 const { SECRET_KEY } = process.env;
 const dotenv = require('dotenv');
 dotenv.config();
-
 const morgan = require('morgan');
+const cookieParser = require("cookie-parser");
+const indexRouter = require("./router/index.js");
 
-const cookieParser = require('cookie-parser');
-
-const indexRouter = require('./router/index.js');
 app.use(express.json());
 app.use(
   session({
