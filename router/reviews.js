@@ -17,35 +17,14 @@ router.post(':reservationId/createdReviews', auth, async (req, res) => {
     return res.status(400).json({ erorMessage: '예약이 존재하지 않습니다.' });
   }
 
-  const { title, content } = req.body;
+  const { title, content, } = req.body;
   const createdReview = await Reviews.create({
     ReservationId: reservationId,
     title,
-    content
+    content,
   });
   return res.status(200).json({ data: createdReview });
 });
-
- /*  router.post(':reservationId/createdratig', auth, async (req, res) => {
-    const { userValid } = res.locals.user;
-    const { reservationId } = req.params;
-
-    if (!userValid) {
-        res.status(401).json({ message: '로그인이 필요합니다.' });
-        return;
-      }
-      const foundReservation = await Reservation.findOne({ where: { reservationId } });
-      if (!foundReservation) {
-        return res.status(400).json({ erorMessage: '예약이 존재하지 않습니다.' });
-      }
-  
-      const { rating } = req.body;
-      const createdRatig = await Rating.create({
-        ReservaitonId: reservationId,
-        rating
-      }) 
-
-})*/
 
 //전체 리뷰 불러오기
 router.get('/allReview', auth, async (req, res) => {
@@ -80,24 +59,25 @@ router.get('/:reviewId', auth, async (req, res) => {
 });
 
 //리뷰 정보 수정
-router.put('/:reveiwID', auth, async (req, res) => {
-const { reviewId } = req.params;
-const { title, content } = req.body;
+router.put('/:reservationId', auth, async (req, res) => {
+const { reservationId } = req.params;
+const { startDate, endDate, petSitter } = req.body;
 
 try {
-const review = await review.findOne({ where: { reviewId } });
+const reservation = await Reservations.findOne({ where: { reservationId } });
 
-if (!review) {
-res.status(404).json({ message: '리뷰 정보가 존재하지 않습니다.' });
+if (!reservation) {
+res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
 return;
 }
 
-await review.update({
-content,
-title
+await reservation.update({
+startDate,
+endDate,
+petSitter,
 });
 
-res.status(200).json({ message: '리뷰 변경이 완료 되었습니다.' });
+res.status(200).json({ message: '예약 변경이 완료 되었습니다.' });
 } catch (error) {
 console.log(error);
 res.status(500).json({ message: error });
@@ -105,20 +85,20 @@ res.status(500).json({ message: error });
 });
 
 // 리뷰 삭제
-router.delete('/:reviewId', auth, async (req, res) => {
-const { reviewId } = req.params;
+router.delete('/:reservationId', auth, async (req, res) => {
+const { reservationId } = req.params;
 
 try {
-const review = await review.findOne({ where: { reviewId } });
+const reservation = await Reservations.findOne({ where: { reservationId } });
 
-if (!review) {
-res.status(404).json({ message: '리뷰가 존재하지 않습니다.' });
+if (!reservation) {
+res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
 return;
 }
 
-await review.destroy();
+await reservation.destroy();
 
-res.status(200).json({ message: '리뷰 삭제가 완료 되었습니다.' });
+res.status(200).json({ message: '예약 삭제가 완료 되었습니다.' });
 } catch (error) {
 console.log(error);
 res.status(500).json({ message: error });
