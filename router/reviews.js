@@ -68,9 +68,24 @@ router.post('/reservations/:reservationId/reviews', authMiddleware, async (req, 
 
 })
 
-//리뷰 수정, 별점 기능 구현
-router.patch('/reservations/:resevationId/reviews', authMiddleware, async (req, res) => {
-    
-}) 
+//리뷰 수정, 별점 기능 구현router.patch('/reservations/:resevationId/reviews', authMiddleware, async (req, res) => {
+    const { userId } = res.locals.user;
+    const { reservationId } = req.params;
+    const { review } = req.body;
+
+    const reservations = await reservations.findOne({ where: { reservationId }})
+    const reviews = await reviews.findoe({ where: { reviewId }})
+
+    try {
+        if (!review) {
+            return res.status(404).json({ errMessage: "리뷰가 존재하지 않습니다." })         
+        } if (!reservation) {
+            return res.status(400).json({ errMessage:"예약이 존재하지 않습니다."})
+        } if ( userId !== reviews.UserId ) return res.status(400).json({ errMessage:"수정 권한이 존재하지 않습니다."}) 
+   await Reviews.update({ review }), {where: { reviewId} } 
+ return res.status(200).json({ message: "리뷰가 수정됬습니다."})
+} catch (err) {
+    res.status(404).json({ errMessage: "리뷰 수정이 실패하였습니다."})}
+})
 
 module.exports = router
