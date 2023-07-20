@@ -48,15 +48,15 @@ router.post('/signup', signUpValidation, async (req, res) => {
   }
 });
 
-router.get('/', auth, async (req, res) => {
-  try {
-    const { userId } = req.session.user;
-    const user = await Users.findOne({ where: { userId } });
-    res.status(200).json({ user });
-  } catch (error) {
-    console.error(error);
-    return res.status(400).json({ message: '오류가 발생하였습니다.' });
-  }
-});
+// router.get('/', auth, async (req, res) => {
+//   try {
+//     const { userId } = req.session.user;
+//     const user = await Users.findOne({ where: { userId } });
+//     res.status(200).json({ user });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(400).json({ message: '오류가 발생하였습니다.' });
+//   }
+// });
 
 module.exports = router;
