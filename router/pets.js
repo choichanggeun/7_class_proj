@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const { Reservations, Pets, PetSitters } = require('../models');
+const { Pets, Reservations } = require('../models');
 
-// 예약 등록
+// 펫 등록
 router.post('/', auth, async (req, res) => {
-  const { startDate, endDate, petId, petSitterId } = req.body;
+  const { petName, petGender, petAge } = req.body;
   const userValid = res.locals.user;
 
   // 로그인 여부 확인
@@ -15,21 +15,14 @@ router.post('/', auth, async (req, res) => {
   }
 
   try {
-    const reservation = await Reservations.create(
-      {
-        UserId: req.user.userId,
-        PetId: petId,
-        PetSitterId: petSitterId,
-        startDate: startDate,
-        endDate: endDate,
-      },
-      {
-        include: Pets,
-      }
-    );
-
+    const pets = await Pets.create({
+      UserId: req.user.userId,
+      petName: petName, // 수정된 부분
+      petGender: petGender, // 수정된 부분
+      petAge: petAge,
+    });
     res.status(201).json({
-      reservation,
+      Pets,
     });
   } catch (err) {
     console.error(err);
@@ -39,25 +32,19 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-// 예약 정보 조회
-router.get('/:reservationId', auth, async (req, res) => {
-  const reservationId = req.params.reservationId;
+// 펫 정보 조회
+router.get('/:petId', auth, async (req, res) => {
+  const petId = req.params.petId;
   const user = req.user;
 
   try {
-    const reservation = await Reservations.findOne({
+    const pet = await Pets.findOne({
       where: {
-        reservationId,
         UserId: user.userId,
       },
-      include: [
-        {
-          model: Pets,
-        },
-      ],
     });
 
-    if (!reservation) {
+    if (!pet) {
       res.status(404).json({
         message: '예약 정보를 찾지 못했습니다.',
       });
@@ -65,7 +52,7 @@ router.get('/:reservationId', auth, async (req, res) => {
     }
 
     res.status(200).json({
-      reservation,
+      pet,
     });
   } catch (err) {
     console.error(err);
@@ -74,24 +61,23 @@ router.get('/:reservationId', auth, async (req, res) => {
     });
   }
 });
-
-// 예약 정보 수정
-router.put('/:reservationId', auth, async (req, res) => {
-  const { reservationId } = req.params;
-  const { startDate, endDate, petSitter } = req.body;
+// 펫 정보 수정
+router.put('/:petId', auth, async (req, res) => {
+  const { petId } = req.params;
+  const { petName, petAge, petGender } = req.body;
 
   try {
-    const reservation = await Reservations.findOne({ where: { reservationId } });
+    const pet = await Pets.findOne({ where: { petId } });
 
-    if (!reservation) {
+    if (!pet) {
       res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
       return;
     }
 
-    await reservation.update({
-      startDate,
-      endDate,
-      petSitter,
+    await pet.update({
+      petName,
+      petAge,
+      petGender,
     });
 
     res.status(200).json({ message: '예약 변경이 완료 되었습니다.' });
@@ -102,18 +88,18 @@ router.put('/:reservationId', auth, async (req, res) => {
 });
 
 // 예약 삭제
-router.delete('/:reservationId', auth, async (req, res) => {
-  const { reservationId } = req.params;
+router.delete('/:petId', auth, async (req, res) => {
+  const { petId } = req.params;
 
   try {
-    const reservation = await Reservations.findOne({ where: { reservationId } });
+    const pet = await Pets.findOne({ where: { petId } });
 
-    if (!reservation) {
+    if (!pet) {
       res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
       return;
     }
 
-    await reservation.destroy();
+    await pet.destroy();
 
     res.status(200).json({ message: '예약 삭제가 완료 되었습니다.' });
   } catch (error) {
