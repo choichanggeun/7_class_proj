@@ -8,8 +8,8 @@ const { SECRET_KEY } = process.env;
 const dotenv = require('dotenv');
 dotenv.config();
 const morgan = require('morgan');
-const cookieParser = require("cookie-parser");
-const indexRouter = require("./router/index.js");
+const cookieParser = require('cookie-parser');
+const indexRouter = require('./router/index.js');
 
 app.use(express.json());
 app.use(
@@ -24,6 +24,12 @@ app.use(
     },
   })
 );
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
