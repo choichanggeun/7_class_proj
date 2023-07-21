@@ -23,6 +23,7 @@ app.use(
     resave: false,
     rolling: true,
     saveUninitialized: false,
+    // 세션을 DB 나 파일로 저장 하면 서버가 껐다 켜져도 유지가 된다.
     store: new MemoryStore({ checkPeriod: 1000 * 60 * 60 }),
     cookie: {
       maxAge: 1000 * 60 * 60,
