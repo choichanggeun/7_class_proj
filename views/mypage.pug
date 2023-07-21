@@ -48,17 +48,20 @@ script.
             <h2>Pet Info</h2>
                 <table>
                 <tr>
-                    <th>ID</th>
                     <th>petName</th>
                     <th>petGender</th>
                     <th>petAge</th>
                 </tr>
-                <tr>
-                    <td>${petData.pet.petId}</td>
-                    <td>${petData.pet.petGender}</td>
-                    <td>${petData.pet.petAge}</td>
-                    <td>${petData.pet.petAge}</td>
-                </tr>            
+                ${petData.pet.map((pet)=>{
+                    return `
+                     <tr>
+                    <td>${pet.petName}</td>
+                    <td>${pet.petGender}</td>
+                    <td>${pet.petAge}</td>
+                </tr>
+                    `
+                })}
+                          
                 </table>
             `
         }
@@ -78,12 +81,12 @@ script.
         // 2. 펫 정보로 펫 테이블을 만들기 
         const getPets = async () => {
             let petInfo = await fetch('/api/pets/me')     
-            return await petInfo .json()      
+            return await petInfo.json()      
         } 
 
         const petData = await getPets();
-        createPetTable(petData) 
-
+        createPetTable(petData)  
+       
     }
    
     init();

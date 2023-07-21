@@ -49,8 +49,7 @@ router.get('/reviews/:reviewId', auth, async (req, res) => {
   } */
   res.status(200).json({ data: oneReview });  
   }catch (error) {
-    res.status(400).json({ message: '리뷰 찾기가 실패 했습니다.'      
-    });
+    res.status(400).json({ message: '리뷰 찾기가 실패 했습니다.'});
   }
 })
 

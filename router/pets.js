@@ -7,7 +7,7 @@ const { Pets, Reservations } = require('../models');
 router.post('/', auth, async (req, res) => {
   const { petName, petGender, petAge } = req.body;
   const userValid = res.locals.user;
-
+  console.log(req.body);
   // 로그인 여부 확인
   if (!userValid) {
     res.status(401).json({ message: '로그인이 필요합니다.' });
@@ -22,7 +22,7 @@ router.post('/', auth, async (req, res) => {
       petAge: petAge,
     });
     res.status(201).json({
-      pet,
+      message: '펫 등록에 성공하였습니다',
     });
   } catch (err) {
     console.error(err);
@@ -39,7 +39,7 @@ router.get('/me', auth, async (req, res) => {
   const user = req.user;
 
   try {
-    const pet = await Pets.findOne({
+    const pet = await Pets.findAll({
       where: {
         UserId: user.userId,
       },

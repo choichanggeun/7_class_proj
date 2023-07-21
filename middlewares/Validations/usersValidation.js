@@ -49,16 +49,13 @@ const userValidation = {
         .regex(/^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])/)
         .required()
         .messages(user.password),
-      confirmPassword: Joi.string()
-        .valid(Joi.ref('password'))
-        .required()
-        .messages(user.confirmPassword),
+      confirmPassword: Joi.string().valid(Joi.ref('password')).required().messages(user.confirmPassword),
     });
 
     try {
       await schema.validateAsync(body);
     } catch (err) {
-      return res.status(412).json({ message: err.message });
+      return res.status().json({ message: err.message });
     }
 
     next();
@@ -81,10 +78,7 @@ const userValidation = {
         .required()
         .disallow(Joi.ref('currentPassword'))
         .messages(user.editPassword),
-      editConfirmPassword: Joi.string()
-        .valid(Joi.ref('editPassword'))
-        .required()
-        .messages(user.editConfirmPassword),
+      editConfirmPassword: Joi.string().valid(Joi.ref('editPassword')).required().messages(user.editConfirmPassword),
     });
 
     try {
