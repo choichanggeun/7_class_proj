@@ -17,7 +17,7 @@
     },
     "confirmPassword": {
       "string.base": "확인 패스워드는 문자열이어야 합니다.",
-      "any.required": "확인 패스워드를 입력해 주세요.",
+      "any.required": "확인 워드를 입력해 주세요.",
       "any.only": "입력한 패스워드와 다릅니다."
     },
     "nickname": {

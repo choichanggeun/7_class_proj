@@ -6,7 +6,7 @@ const { Reservations } = require('../models');
 // 예약 등록
 router.post('/', auth, async (req, res) => {
   const { startDate, endDate, petSitter, petInfoId } = req.body;
-
+  const { userId: UserId } = res.locals.user;
   // 로그인 여부 확인
   if (!req.user) {
     res.status(401).json({ message: '로그인이 필요합니다.' });
@@ -15,7 +15,7 @@ router.post('/', auth, async (req, res) => {
 
   try {
     const reservation = await Reservations.create({
-      UserId: req.user.userId,
+      UserId,
       PetInfoId: petInfoId,
       startDate: startDate,
       endDate: endDate,
