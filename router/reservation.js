@@ -14,12 +14,28 @@ router.post('/', auth, async (req, res) => {
     return;
   }
 
+  // 입력받은 petId의 값을 petName으로 변경하고 데이터베이스에서 조회합니다
+  const pet = await Pets.findOne({ where: { petName: petId, UserId: req.user.userId } });
+
+  if (!pet) {
+    res.status(404).json({ message: '유효한 펫 아이디를 찾지 못했습니다.' });
+    return;
+  }
+
+  // PetSitterId 검사를 추가했습니다.
+  const petSitter = await Pets.findByPk(petSitterId);
+
+  if (!petSitter) {
+    res.status(404).json({ message: '유효한 펫 시터 아이디를 찾지 못했습니다.' });
+    return;
+  }
+
   try {
     const reservation = await Reservations.create(
       {
         UserId: req.user.userId,
-        PetId: petId,
-        PetSitterId: petSitterId,
+        PetId: pet.petId,
+        PetSitterId: petSitterId, // 유효한 Pets.petId를 사용했습니다.
         startDate: startDate,
         endDate: endDate,
       },
@@ -34,8 +50,21 @@ router.post('/', auth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      message: '오류입니다.',
+      message: '예약 오류입니다.',
     });
+  }
+});
+//petSitter,pets 조회
+router.get('/', auth, async (req, res, next) => {
+  try {
+    // petSitters 데이터를 가져옵니다 (예: 데이터베이스에서 조회)
+    const petSitters = await PetSitters.findAll();
+    const pets = await Pets.findAll({ where: { UserId: req.user.userId } });
+
+    res.render('reservation', { pageTitle: 'reservation', petSitters, pets });
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 });
 

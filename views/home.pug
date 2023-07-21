@@ -1,26 +1,51 @@
-// home.pug
 doctype html
 html(lang="ko")
-    head
-        title #{pageTitle} | 7조
-    body
-        //- mixin link(href, name)
-        //-     a(href=href)&attributes(attributes)=name
 
-        //- +link('/reservation', '예약하기')(class="reservation")
+  head
+    title #{pageTitle} | 7조
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Bootstrap Navbar Example
+    //- 부트스트랩 CSS 추가
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+    //- 부트스트랩에 필요한 JavaScript 라이브러리 추가
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
 
-        a(href="/reservation") 예약하기
-     
-        a(href="/users/signup") 회원가입
+    style.
+      .custom-container {
+        display: flex;
+        justify-content: center;
+      }
+      .navbar {
+        flex: 1;
+        max-width: 1000px;
+      }
+      .navbar-nav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .nav-item {
+        margin: 0 5px;
+      }
 
-        a(href="/pets") 펫등록
-        
-        a(href="/mypage") 마이페이지
-
-        a(href="/users/signin") 로그인
-
-        
-
-
-
-include partials/footer.pug
+body
+  .custom-container
+    nav.navbar.navbar-expand-lg.bg-light
+      .container-fluid
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        div.collapse.navbar-collapse#navbarNav
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href="/reservation") 예약하기
+            li.nav-item
+              a.nav-link(href="/pets") 펫 등록하기
+            li.nav-item
+              a.nav-link(href="/users/signin") 로그인
+            li.nav-item
+              a.nav-link(href="/users/signup") 회원가입
+            li.nav-item
+              a.nav-link(href="/mypage") 마이페이지
