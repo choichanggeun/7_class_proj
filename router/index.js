@@ -43,13 +43,11 @@ router.get('/reservation', async (req, res, next) => {
   res.render('reservation', { pageTitle: '칠면조' });
 });
 
-
 //리뷰 등록
 router.use('/api/reviews', auth, reviewsRouter);
 router.use('/pets', petsRouter);
 router.use('/users', usersRouter);
-router.use('/reservation', auth, revRouter);
+router.use('/reservation', reservationRouter);
 router.use('/mypage', myPageRouter);
-
 
 module.exports = router;
