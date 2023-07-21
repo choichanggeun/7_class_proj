@@ -1,0 +1,26 @@
+// home.pug
+doctype html
+html(lang="ko")
+    head
+        title #{pageTitle} | 7조
+    body
+        //- mixin link(href, name)
+        //-     a(href=href)&attributes(attributes)=name
+
+        //- +link('/reservation', '예약하기')(class="reservation")
+
+        a(href="/reservation") 예약하기
+     
+        a(href="/users/signup") 회원가입
+
+        a(href="/pets") 펫등록
+        
+        a(href="/mypage") 마이페이지
+
+        a(href="/users/signin") 로그인
+
+        
+
+
+
+include partials/footer.pug
