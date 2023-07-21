@@ -3,9 +3,9 @@ const router = express.Router();
 const auth = require('../middlewares/auth');
 const { PetSitters } = require('../database/data.js');
 
-const myPageRouter = require('./mypage.js');
 const petsRouter = require('./pets.js');
 const usersRouter = require('./users.js');
+const myPageRouter = require('./mypage.js');
 const reviewsRouter = require('./reviews.js');
 const reservationRouter = require('./reservation.js');
 
@@ -17,18 +17,18 @@ router.get('/', (req, res) => {
 // // 회원가입
 router.use('/api/users', usersRouter);
 router.get('/users/signup', (req, res) => {
-  res.render('signup', { pageTitle: '칠면조' });
+  res.render('signup', { pageTitle: 'signup' });
 });
 
 //로그인
 
 router.get('/users/signin', (req, res) => {
-  res.render('signin', { pageTitle: '칠면조', session: req.session });
+  res.render('signin', { pageTitle: 'signin', session: req.session });
 });
 
 //마이 페이지
 router.get('/mypage', (req, res) => {
-  res.render('mypage', { pageTitle: '칠면조' });
+  res.render('mypage', { pageTitle: '칠면조', pageTitle: 'signup' });
 });
 
 //펫 등록

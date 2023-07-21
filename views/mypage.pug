@@ -2,8 +2,95 @@ doctype html
 html
     head
         title #{pageTitle} | 마이페이지
+        style. 
+            table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
 
+            td, th {
+            border: 1px solid #bdc4cf;
+            text-align: left;
+            padding: 8px;
+            }
+
+            tr:nth-child(even) {
+            background-color: #bdc4cf;
+            }
+    body 
+script.
+    const init = async () => {
+        const createUserTable = (userData) => {
+            const body = document.querySelector('body');
+            body.innerHTML += `
+            <h2>User Info</h2>
+                <table>
+                <tr>
+                    <th>ID</th>
+                    <th>nickname</th>
+                    <th>email</th>
+                    <th>createdAt</th>
+                </tr>
+                <tr>
+                    <td>${userData.user.userId}</td>
+                    <td>${userData.user.nickname}</td>
+                    <td>${userData.user.email}</td>
+                    <td>${userData.user.createdAt}</td>
+                </tr>            
+                </table>
+            `
+        }
+         
+        const createPetTable = (petData) => {
+            const body = document.querySelector('body');
+            body.innerHTML += `
+            <h2>Pet Info</h2>
+                <table>
+                <tr>
+                    <th>ID</th>
+                    <th>petName</th>
+                    <th>petGender</th>
+                    <th>petAge</th>
+                </tr>
+                <tr>
+                    <td>${petData.pet.petId}</td>
+                    <td>${petData.pet.petGender}</td>
+                    <td>${petData.pet.petAge}</td>
+                    <td>${petData.pet.petAge}</td>
+                </tr>            
+                </table>
+            `
+        }
+    
+
+        const getUserInfo = async () => {
+                let userInfo = await fetch('/api/users/me')     
+                return await userInfo.json()      
+        }  
+        
+        const userData = await getUserInfo()
+        createUserTable(userData)    
+
+        
+        // 1. pet정보를 가져오는 함수 만들기 
+
+        // 2. 펫 정보로 펫 테이블을 만들기 
+        const getPets = async () => {
+            let petInfo = await fetch('/api/pets/me')     
+            return await petInfo .json()      
+        } 
+
+        const petData = await getPets();
+        createPetTable(petData) 
+
+    }
+   
+    init();
+
+    
 
 
 include partials/footer.pug
-include partials/authModal.pug
+//- include partials/authModal.pug
+

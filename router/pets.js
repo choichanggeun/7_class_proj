@@ -15,14 +15,14 @@ router.post('/', auth, async (req, res) => {
   }
 
   try {
-    const pets = await Pets.create({
+    const pet = await Pets.create({
       UserId: req.user.userId,
       petName: petName, // 수정된 부분
       petGender: petGender, // 수정된 부분
       petAge: petAge,
     });
     res.status(201).json({
-      Pets,
+      pet,
     });
   } catch (err) {
     console.error(err);
@@ -32,9 +32,10 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// /api/pets/:pietId
+// /api/pets/3
 // 펫 정보 조회
-router.get('/:petId', auth, async (req, res) => {
-  const petId = req.params.petId;
+router.get('/me', auth, async (req, res) => {
   const user = req.user;
 
   try {
@@ -46,7 +47,7 @@ router.get('/:petId', auth, async (req, res) => {
 
     if (!pet) {
       res.status(404).json({
-        message: '예약 정보를 찾지 못했습니다.',
+        message: '펫 정보를 찾지 못했습니다.',
       });
       return;
     }
@@ -61,6 +62,7 @@ router.get('/:petId', auth, async (req, res) => {
     });
   }
 });
+
 // 펫 정보 수정
 router.put('/:petId', auth, async (req, res) => {
   const { petId } = req.params;
@@ -70,7 +72,7 @@ router.put('/:petId', auth, async (req, res) => {
     const pet = await Pets.findOne({ where: { petId } });
 
     if (!pet) {
-      res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
+      res.status(404).json({ message: '펫 정보가 존재하지 않습니다.' });
       return;
     }
 
@@ -80,7 +82,7 @@ router.put('/:petId', auth, async (req, res) => {
       petGender,
     });
 
-    res.status(200).json({ message: '예약 변경이 완료 되었습니다.' });
+    res.status(200).json({ message: '펫 변경이 완료 되었습니다.' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });
@@ -95,13 +97,13 @@ router.delete('/:petId', auth, async (req, res) => {
     const pet = await Pets.findOne({ where: { petId } });
 
     if (!pet) {
-      res.status(404).json({ message: '예약 정보가 존재하지 않습니다.' });
+      res.status(404).json({ message: '펫 정보가 존재하지 않습니다.' });
       return;
     }
 
     await pet.destroy();
 
-    res.status(200).json({ message: '예약 삭제가 완료 되었습니다.' });
+    res.status(200).json({ message: '펫 삭제가 완료 되었습니다.' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error });

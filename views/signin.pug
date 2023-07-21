@@ -116,7 +116,7 @@ script.
             //- Ajax 코드
             $.ajax({
                 type: "POST",
-                url: "/users/signin",
+                url: "/api/users/signin",
                 data: $('.validation-form').serialize(),
                 success: function(response) {
                 //-    $("#signin-success .modalmsg").text(response.message);
