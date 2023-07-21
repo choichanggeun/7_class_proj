@@ -1,0 +1,102 @@
+doctype html
+html(lang="ko")
+    head
+        title #{pageTitle}/signUp
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        
+        // Bootstrap CSS
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+
+        // Load jQuery
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js", crossorigin="anonymous")
+
+        //- Bootstrap 4 scripts
+        script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js", integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN", crossorigin="anonymous")
+        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")
+        
+        style.
+            body {
+                min-height: 100vh;
+                background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+                background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+                background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+                background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+            }
+            
+            .input-form {
+              max-width: 680px;
+              margin-top: 80px;
+              padding: 32px;
+              background: #fff;
+              -webkit-border-radius: 10px;
+              -moz-border-radius: 10px;
+              border-radius: 10px;
+              -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+              -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+              box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            }
+
+            .modal-backdrop{
+                display:none;
+            }
+    body
+        .container
+            .input-form-backgroud.row
+                .input-form.col-md-12.mx-auto
+                    h4.mb-3 회원가입
+                    form.validation-form(method="post" action="/users/signup" novalidate)
+                        .row
+                        .mb-3
+                            label(for="nickname") 이름
+                            input(type="text", class="form-control", id="nickname", name="nickname", placeholder="ex:스파르타",autocomplete="name", required)
+                            .invalid-feedback 이름을 입력해주세요.
+                        .mb-3
+                            label(for="email") 이메일
+                            input(type="email", class="form-control", id="email", name="email", placeholder="you@example.com",autocomplete="email", required)
+                            .invalid-feedback 이메일을 입력해주세요.
+                        .mb-3
+                            label(for="password") 패스워드
+                            input(type="password", class="form-control", id="password", name="password", autocomplete="new-password",required)
+                            .invalid-feedback 패스워드를 입력해주세요.
+                        .mb-3
+                            label(for="password") 패스워드 확인
+                            input(type="password", class="form-control", id="confirmPassword", name="confirmPassword",autocomplete="new-password", required)
+                            .invalid-feedback 패스워드와 일치하게 입력해주세요.
+                        .mb-3
+                            button(type="submit", class="btn btn-primary") 회원가입
+        modal.fade(tabindex="-1" role="dialog" id="signup-success")
+                  .modal-dialog(role="document")
+                    .modal-content
+                      .modal-header
+                        h5.modal-title 회원가입 완료
+                      .modal-body
+                        p.modalmsg
+                      .modal-footer
+                        a(href="/" role="button" class="btn btn-primary") 확인
+
+        script.
+            $(document).ready(function() {
+                $(".validation-form").submit(function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/users/signup",
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            $("#signup-success .modalmsg").text(response.message);
+                              $('#signup-success').modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                             },
+                            error: function(error) {
+                            alert(error.responseJSON.message);
+                            }
+                        });
+                        });
+                    });
+
+                  
+    include partials/footer.pug

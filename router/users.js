@@ -4,6 +4,8 @@ const { SECRET_KEY } = process.env;
 
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer();
 const { Users } = require('../models');
 const { signInValidation, signUpValidation } = require('../middlewares/Validations/usersValidation');
 const auth = require('../middlewares/auth');
@@ -19,7 +21,7 @@ router.post('/signin', signInValidation, async (req, res) => {
     });
 
     if (!userValid) return res.status(412).json({ message: '아이디와 비밀번호가 일치하지 않습니다.' });
-    req.session.user = userValid;
+    else req.session.user = userValid;
 
     return res.status(201).json({ message: '로그인 성공' });
   } catch (error) {
@@ -37,7 +39,7 @@ router.get('/signout', (req, res) => {
 
 router.post('/signup', signUpValidation, async (req, res) => {
   try {
-    const { email, password, nickname } = req.body;
+    const { nickname, email, password, confirmPassword } = req.body;
     const passwordToCrypto = crypto.pbkdf2Sync(password, SECRET_KEY.toString('hex'), 11524, 64, 'sha512').toString('hex');
     const userValid = await Users.findOne({ where: { email: email } });
     if (userValid) return res.status(412).json({ message: '이미 가입된 이메일입니다.' });

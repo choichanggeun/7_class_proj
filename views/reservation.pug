@@ -1,0 +1,42 @@
+doctype html
+html
+    head
+        title #{pageTitle} | 7_Class_Pet
+    body
+        input#petSitterName(type='text', readonly)
+        select#petSitter(name="petSitter" onchange="updatePetSitterName()")
+            each petSitter in petSitters
+                option(value=petSitter.petSitterId) #{petSitter.sitterName}
+
+        br
+        br
+        br
+        input#reservationDate(type='date')
+        br
+        input#reservationTime(type='time')
+        input#reservationSubmit(type='submit' onclick="updateDate()" value="확인")
+        
+        .button-reserve.btn.btn-primary(data-toggle=session.user ? '' : 'modal' data-target=session.user ? '' : '#authModal') 예약하기
+        
+        
+        script.
+
+             
+            
+            function updatePetSitterName() {
+                const petSitterSelect = document.querySelector('#petSitter');
+                const petSitterNameInput = document.querySelector('#petSitterName');
+                const selectedPetSitterName = petSitterSelect.options[petSitterSelect.selectedIndex].text;
+                petSitterNameInput.value = selectedPetSitterName;
+            }
+
+            function updateDate() {
+                const date = document.querySelector('#reservationDate').value;
+                const time = document.querySelector('#reservationTime').value;
+                const result = `${date} ${time}`;
+            }   const session = session.id
+            document.addEventListener('DOMContentLoaded', updatePetSitterName);
+
+
+include partials/footer.pug
+include partials/authModal.pug
