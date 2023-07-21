@@ -8,7 +8,7 @@ const usersRouter = require('./users.js');
 const reviewsRouter = require('./reviews.js');
 const revRouter = require('./reservation.js');
 
-router.use('/reviews', reviewsRouter);
+router.use('/', reviewsRouter);
 router.use('/pets', petsRouter);
 router.use('/users', usersRouter);
 router.use('/reservation', auth, revRouter);
