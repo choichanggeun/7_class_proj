@@ -14,9 +14,15 @@ html(lang="ko")
     script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
 
-    style.
+  style.
+    
       body {
-        background: skyblue; 
+        background-color: skyblue;
+       
+        *{maring:0; padding:0;}
+        
+         
+        
       }
       .custom-container {
         display: flex;
@@ -36,64 +42,134 @@ html(lang="ko")
         background-color: transparent !important;
       }
       .navbar {
-        margin-left: auto;
-        margin-right: auto;
+        
       }
       .navbar-nav {
         width: 100%;
       }
       .nav-item {
-        margin: 0 5px;
+        margin-right:190px;
       }
       .logo-container {
         height: 500px;
       }
 
-      .sitter-container {
-        height: 200px;
-      }
+       .allbox-container {
+        width:100%; 
+        margin:0 auto;
+       }  
+
       .img-div {
-        width: 500px;
-        height: 400px;
+        width: 400px;
+        height: 300px;
         margin-top: 2rem;
         margin-right: auto;
         margin-left: auto;
       }
       .imm-div {
-        width: 50px;
+        width: 100px;
         height: 30px;
       }
       .img-div img {
         width: 100%;
         height: 100%;
       }
+      .sitter-container {
+        width: 100%;
+        height: 100%;
+      }
 
+      .sitter-div img {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .sitter1-div {
+        display: flex; 
+      }
+
+      .sitter2-div {
+        display: flex; 
+      }
+
+      .sitter3-div {
+        display: flex; 
+      }
+      
+      .sitter4-div {
+        display: flex; 
+      }
+
+      .sitter1-div img {
+        width:300px;
+        height:150px;
+      }
+
+      .sitter2-div img {
+       width:300px;
+        height:150px;
+      }
+
+      .sitter3-div img {
+        width:300px;
+        height:150px;
+      }
+
+      .sitter4-div img {
+        width:300px;
+        height:150px;
+      }
+      .sitter1text  {
+        text-align: center;
+        border: 1px solid blue
+      }
+      .sitter-container.img
 body
-  .custom-container
-      img(src="/images/Frame52.png", alt="")
-  nav.navbar.navbar-expand-lg.bg-light
-    .container-fluid
-      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
-        span.navbar-toggler-icon
-      div.collapse.navbar-collapse#navbarNav
-        ul.navbar-nav
-          li.nav-item
-            a.nav-link(href="/reservation") 예약하기
-          li.nav-item
-            a.nav-link(href="/pets") 펫 등록하기
-          li.nav-item
-            a.nav-link(href="/users/signin") 로그인
-          li.nav-item
-            a.nav-link(href="/users/signup") 회원가입
-          li.nav-item
-            a.nav-link(href="/mypage") 마이페이지
-div.logo-container 
-    div.img-div
-        img(src="/images/logo.png", alt="")
-div.sitter-container 
-    div.imm-div
-        img(src="/images/sitter1.jpg", alt="")
-        img(src="/images/sitter2.jpg", alt="")
-        img(src="/images/sitter3.jpg", alt="")
-        img(src="/images/sitter4.jpg", alt="")
-        
+    div.allbox-container
+
+      .custom-container
+          img(src="/images/Frame52.png", alt="")
+      nav.navbar.navbar-expand-lg.bg-light
+        .container-fluid
+          button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+          div.collapse.navbar-collapse#navbarNav
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link(href="/reservation") 예약하기
+              li.nav-item
+                a.nav-link(href="/pets") 펫 등록하기
+              li.nav-item
+                a.nav-link(href="/users/signin") 로그인
+              li.nav-item
+                a.nav-link(href="/users/signup") 회원가입
+              li.nav-item
+                a.nav-link(href="/mypage") 마이페이지
+      div.logo-container 
+        div.img-div
+          img(src="/images/logo.png", alt="")
+
+      div.sitter-div
+        div.sitter1-div
+          div.sitter1img-div
+            img(src="/images/sitter1.jpg", alt="")
+          div.sitter1text-div
+            p 안녕히계세요 여러분 ~
+          
+      div.sitter2-div
+        div.sitter2img-div
+          img(src="/images/sitter2.jpg", alt="")
+        div.sitter1text-div
+          p  전 밥 먹고 오겠습니다~
+
+      div.sitter3-div
+        div.sitter3img-div
+          img(src="/images/sitter3.jpg", alt="")
+        div.sitter1text-div
+          p 하 하 하 하 아 아아아아아아아ㅏㅇ앙아아아ㅏ
+
+      div.sitter4-div
+        div.sitter4img-div
+          img(src="/images/sitter4.jpg", alt="")
+        div.sitter1text-div
+          p 

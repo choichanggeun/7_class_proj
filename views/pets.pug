@@ -102,11 +102,11 @@ script.
         }
     })
      $("#Pets-button").click(function() {
-            var PetsName = $("#PetsName").val();
+            var petName = $("#petName").val();
             var petGender = $("#petGender").val();
             var petAge = $("#petAge").val();
-
-            if (PetsName === "" || petGender === ""|| petAge === "") {
+        console.log(petName, petGender, petAge)
+            if (!petName || !petGender|| !petAge ) {
                 alert("반려견의 이름과 나이,성별을 입력해주세요.");
                 return false;
             }

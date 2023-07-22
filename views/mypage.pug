@@ -65,6 +65,30 @@ script.
                 </table>
             `
         }
+
+        const createPetTable = (reservationData) => {
+            const body = document.querySelector('body');
+            body.innerHTML += `
+            <h2>Reservation</h2>
+                <table>
+                <tr>
+                    <th>petName</th>
+                    <th>petGender</th>
+                    <th>petAge</th>
+                </tr>
+                ${petData.pet.map((pet)=>{
+                    return `
+                     <tr>
+                    <td>${pet.petName}</td>
+                    <td>${pet.petGender}</td>
+                    <td>${pet.petAge}</td>
+                </tr>
+                    `
+                })}
+                          
+                </table>
+            `
+        }
     
 
         const getUserInfo = async () => {
@@ -87,6 +111,13 @@ script.
         const petData = await getPets();
         createPetTable(petData)  
        
+       const getReservation = async () => {
+            let reservation = await fetch('/api/reservation/me')     
+            return await petInfo.json()      
+        } 
+
+        const reservaionData = await getReservation();
+        createPetTable(reservationData)  
     }
    
     init();
