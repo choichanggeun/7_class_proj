@@ -1,22 +1,19 @@
 doctype html
 html(lang="ko")
-
   head
     title #{pageTitle} | 7조
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Bootstrap Navbar Example
-    
     //- 부트스트랩 CSS 추가
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
     //- 부트스트랩에 필요한 JavaScript 라이브러리 추가
     script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
     script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
-
     style.
       body {
-        background: skyblue; 
+        background: skyblue;
       }
       .custom-container {
         display: flex;
@@ -24,7 +21,6 @@ html(lang="ko")
         margin-top: 2rem;
         margin-bottom: 2rem;
       }
-      
       .container-fluid {
         width: auto;
         display: flex;
@@ -48,10 +44,6 @@ html(lang="ko")
       .logo-container {
         height: 500px;
       }
-
-      .sitter-container {
-        height: 200px;
-      }
       .img-div {
         width: 500px;
         height: 400px;
@@ -67,7 +59,15 @@ html(lang="ko")
         width: 100%;
         height: 100%;
       }
-
+      .sitter-container {
+        width: 10px;
+        height: 1120px;
+      }
+      .sitter-div img {
+        width: 100px;
+        height: 100px;
+      }
+      .sitter-container.img
 body
   .custom-container
       img(src="/images/Frame52.png", alt="")
@@ -87,13 +87,20 @@ body
             a.nav-link(href="/users/signup") 회원가입
           li.nav-item
             a.nav-link(href="/mypage") 마이페이지
-div.logo-container 
+            
+div.logo-container
     div.img-div
         img(src="/images/logo.png", alt="")
-div.sitter-container 
-    div.imm-div
+div.sitter-container
+    div.sitter-div
         img(src="/images/sitter1.jpg", alt="")
         img(src="/images/sitter2.jpg", alt="")
         img(src="/images/sitter3.jpg", alt="")
         img(src="/images/sitter4.jpg", alt="")
-        
+
+
+
+
+
+
+
