@@ -16,6 +16,9 @@ const path = require('path');
 app.set('view engine', 'pug'); // pug를 사용한다는 설정
 app.set('views', path.join(__dirname, 'views')); // pug 경로 설정
 
+// public 디렉토리를 정적 파일 제공을 위한 디렉토리로 설정
+app.use(express.static(path.join(__dirname, 'public')));//버플릭키준다 
+
 app.use(express.json());
 app.use(
   session({
@@ -35,7 +38,6 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
 });
-
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
