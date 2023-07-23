@@ -1,28 +1,20 @@
 doctype html
 html(lang="ko")
-
   head
     title #{pageTitle} | 7조
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Bootstrap Navbar Example
-    
     //- 부트스트랩 CSS 추가
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
     //- 부트스트랩에 필요한 JavaScript 라이브러리 추가
     script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
     script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js")
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
-
   style.
-    
       body {
         background-color: skyblue;
-       
         *{maring:0; padding:0;}
-        
-         
-        
       }
       .custom-container {
         display: flex;
@@ -30,7 +22,6 @@ html(lang="ko")
         margin-top: 2rem;
         margin-bottom: 2rem;
       }
-      
       .container-fluid {
         width: auto;
         display: flex;
@@ -42,7 +33,6 @@ html(lang="ko")
         background-color: transparent !important;
       }
       .navbar {
-        
       }
       .navbar-nav {
         width: 100%;
@@ -54,10 +44,10 @@ html(lang="ko")
         height: 500px;
       }
 
-       .allbox-container {
-        width:100%; 
+      .allbox-container {
+        width:100%;
         margin:0 auto;
-       }  
+       }
 
       .img-div {
         width: 400px;
@@ -81,12 +71,10 @@ html(lang="ko")
         display: flex;
         margin: 0rem 0rem 2rem 0rem;
       }
-
       .sitter-div img {
         width: 100%;
         height: 100%;
       }
-      
       .sitter1-div {
         width: 500px;
         text-align: center;
@@ -95,7 +83,6 @@ html(lang="ko")
         border-radius: 50px;
         padding: 20px 0px 0px 0px;
       }
-
       .sitter2-div {
         width: 500px;
         text-align: center;
@@ -104,7 +91,6 @@ html(lang="ko")
         border-radius: 50px;
         padding: 20px 0px 0px 0px;
       }
-
       .sitter3-div {
         width: 500px;
         text-align: center;
@@ -113,7 +99,6 @@ html(lang="ko")
         padding: 20px 0px 0px 0px;
         border-radius: 50px;
       }
-      
       .sitter4-div {
         width: 500px;
         text-align: center;
@@ -122,22 +107,18 @@ html(lang="ko")
         border-radius: 50px;
         padding: 20px 0px 0px 0px;
       }
-
       .sitter1-div img {
         width:300px;
         height:150px;
       }
-
       .sitter2-div img {
         width:300px;
         height:150px;
       }
-
       .sitter3-div img {
         width:300px;
         height:150px;
       }
-
       .sitter4-div img {
         width:300px;
         height:150px;
@@ -147,7 +128,6 @@ html(lang="ko")
         border: 1px solid blue
       }
       .sitter-container.img
-
       .dog-container {
         width: 10px;
         height: 1120px;
@@ -168,9 +148,13 @@ html(lang="ko")
         text-align:center;
         margin: 1rem 0rem;
       }
+
+      .rounded-image {
+        border-radius: 10px; 
+        border: 1px solid navy; 
+      }
 body
     div.allbox-container
-
       .custom-container
           img(src="/images/Frame52.png", alt="")
       nav.navbar.navbar-expand-lg.bg-light
@@ -189,14 +173,18 @@ body
                 a.nav-link(href="/users/signup") 회원가입
               li.nav-item
                 a.nav-link(href="/mypage") 마이페이지
-      div.logo-container 
+                li.nav-item
+                a.nav-link(href="/api/reviews") 리뷰등록
+                
+
+                views/home.pug
+      div.logo-container
         div.img-div
           img(src="/images/logo.png", alt="")
-
       div.sitter-div
         div.sitter1-div
           div.sitter1img-div
-            img(src="/images/sitter1.jpg", alt="")
+            img(src="/images/sitter1.jpg", alt="", class="rounded-image")
           div.sitter1text-div
             p
             p 펫시터 이름 : 최창근
@@ -204,7 +192,7 @@ body
             p 펫시터 어필 : 제발 플리즈!! 저를 써주세요!!
       div.sitter2-div
         div.sitter2img-div
-          img(src="/images/sitter2.jpg", alt="")
+          img(src="/images/sitter2.jpg", alt="", class="rounded-image")
         div.sitter1text-div
           p
           p 펫시터 이름 : 이예진
@@ -213,7 +201,7 @@ body
 
       div.sitter3-div
         div.sitter3img-div
-          img(src="/images/sitter3.jpg", alt="")
+          img(src="/images/sitter3.jpg", alt="", class="rounded-image")
         div.sitter1text-div
           p
           p 펫시터 이름 : 최낙민
@@ -222,7 +210,7 @@ body
 
       div.sitter4-div
         div.sitter4img-div
-          img(src="/images/sitter4.jpg", alt="")
+          img(src="/images/sitter4.jpg", alt="", class="rounded-image")
         div.sitter1text-div
           p
           p 펫시터 이름 : 박채원
@@ -232,5 +220,4 @@ body
       div.dog-container 
         div.dog-div
           img(src="/images/dog.png", alt="")
-        div.dog-button
-          button.btn.btn-primary(type="button") 리뷰쓰기
+          
