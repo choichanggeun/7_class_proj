@@ -23,7 +23,7 @@ router.post('/', auth, async (req, res) => {
   }
 
   // PetSitterId 검사를 추가했습니다.
-  const petSitter = await Pets.findByPk(petSitterId);
+  const petSitter = await PetSitters.findOne({ where: { petSitterId } });
 
   if (!petSitter) {
     res.status(404).json({ message: '유효한 펫 시터 아이디를 찾지 못했습니다.' });
