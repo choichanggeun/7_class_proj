@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const { Pets, Reservations } = require('../models');
+const { Pets, Reservations, Users } = require('../models');
 
 // 펫 등록
 router.post('/', auth, async (req, res) => {
@@ -60,6 +60,20 @@ router.get('/me', auth, async (req, res) => {
     res.status(500).json({
       message: '서버 오류입니다.',
     });
+  }
+});
+
+//mypage.pug 에서 petName 가져옴
+router.get('/getPetName', auth, async (req, res) => {
+  try {
+    const { userId } = req.session.user;
+    const user = await Users.findOne({ where: { userId } });
+    const petName = user.petName; // 추출된 값
+    console.log(user);
+    res.status(200).json({ petName });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: '오류가 발생하였습니다.' });
   }
 });
 
