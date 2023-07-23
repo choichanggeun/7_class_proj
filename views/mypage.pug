@@ -1,8 +1,6 @@
 doctype html
 html
     head
-    
-
         title #{pageTitle} | 마이페이지
         style.
             table {
@@ -16,15 +14,7 @@ html
             padding: 8px;
             }
             tr:nth-child(even) {
-                background-color: #BDC4CF;
-            }
-            h2 {
-                display: inline-block;
-            }
-            .dog-button {
-                display: flex;
-                text-align: center;
-                float: right;
+            background-color: #BDC4CF;
             }
     body
 script.
@@ -32,7 +22,7 @@ script.
         const createUserTable = (userData) => {
             const body = document.querySelector('body');
             body.innerHTML += `
-            <h2>User Info</h2> <button class= "dog-button" type="button">리뷰쓰기</button>
+            <h2>User Info</h2>
                 <table>
                 <tr>
                     <th>ID</th>
@@ -71,6 +61,39 @@ script.
                 </table>
             `
         }
+            //reservation 가져오기
+        const createNickTable = (getName) => {
+            const body = document.querySelector('body');
+            body.innerHTML += `
+            <h2>User name</h2>
+                <table>
+                <tr>
+                    <th>nickname</th>
+                    <th>
+                </tr>
+                <tr>
+                    <td>${getName.nickname}</td>
+                </tr>
+                </table>
+            `
+        }
+            //users에서 reservation안에 넣을 user.nickname 값을 요청
+        const getNames = async () => {
+            let getNick = await fetch('/api/users/getName')
+            return await getNick.json()
+        }
+        const getName = await getNames();
+        createNickTable(getName)
+        //-     //users에서 reservation안에 넣을 user.nickname 값을 요청
+        //- const getNames = async () => {
+        //-     let getNick = await fetch('/api/users/getName')   
+        //-     return await getNick.json()    
+        //- }
+        //-     //users에서 reservation안에 넣을 user.nickname 값을 요청
+        //- const getNames = async () => {
+        //-     let getNick = await fetch('/api/users/getName')   
+        //-     return await getNick.json()    
+        //- }
         const getUserInfo = async () => {
                 let userInfo = await fetch('/api/users/me')
                 return await userInfo.json()
@@ -87,5 +110,7 @@ script.
         createPetTable(petData)
     }
     init();
+
+    
 include partials/footer.pug
 //- include partials/authModal.pug
