@@ -45,8 +45,13 @@ router.get('/reservaiton', (req, res) => {
 
 //리뷰 등록
 router.use('/api/reviews', auth, reviewsRouter);
+router.get('/reviews', (req, res) => {
+  res.render('/reviews/posting', { pageTitle: '칠면조' });
+});
+
 router.use('/pets', petsRouter);
 router.use('/users', usersRouter);
 router.use('/reservation', reservationRouter);
 router.use('/mypage', myPageRouter);
+router.use('/reviews', auth, reviewsRouter);
 module.exports = router;
