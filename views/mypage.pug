@@ -1,30 +1,38 @@
 doctype html
 html
     head
+    
+
         title #{pageTitle} | 마이페이지
-        style. 
+        style.
             table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
             }
-
             td, th {
-            border: 1px solid #bdc4cf;
+            border: 1px solid #BDC4CF;
             text-align: left;
             padding: 8px;
             }
-
             tr:nth-child(even) {
-            background-color: #bdc4cf;
+                background-color: #BDC4CF;
             }
-    body 
+            h2 {
+                display: inline-block;
+            }
+            .dog-button {
+                display: flex;
+                text-align: center;
+                float: right;
+            }
+    body
 script.
     const init = async () => {
         const createUserTable = (userData) => {
             const body = document.querySelector('body');
             body.innerHTML += `
-            <h2>User Info</h2>
+            <h2>User Info</h2> <button class= "dog-button" type="button">리뷰쓰기</button>
                 <table>
                 <tr>
                     <th>ID</th>
@@ -37,11 +45,10 @@ script.
                     <td>${userData.user.nickname}</td>
                     <td>${userData.user.email}</td>
                     <td>${userData.user.createdAt}</td>
-                </tr>            
+                </tr>
                 </table>
             `
         }
-         
         const createPetTable = (petData) => {
             const body = document.querySelector('body');
             body.innerHTML += `
@@ -61,70 +68,24 @@ script.
                 </tr>
                     `
                 })}
-                          
                 </table>
             `
         }
-
-        const createPetTable = (reservationData) => {
-            const body = document.querySelector('body');
-            body.innerHTML += `
-            <h2>Reservation</h2>
-                <table>
-                <tr>
-                    <th>petName</th>
-                    <th>petGender</th>
-                    <th>petAge</th>
-                </tr>
-                ${petData.pet.map((pet)=>{
-                    return `
-                     <tr>
-                    <td>${pet.petName}</td>
-                    <td>${pet.petGender}</td>
-                    <td>${pet.petAge}</td>
-                </tr>
-                    `
-                })}
-                          
-                </table>
-            `
-        }
-    
-
         const getUserInfo = async () => {
-                let userInfo = await fetch('/api/users/me')     
-                return await userInfo.json()      
-        }  
-        
+                let userInfo = await fetch('/api/users/me')
+                return await userInfo.json()
+        }
         const userData = await getUserInfo()
-        createUserTable(userData)    
-
-        
-        // 1. pet정보를 가져오는 함수 만들기 
-
-        // 2. 펫 정보로 펫 테이블을 만들기 
+        createUserTable(userData)
+        // 1. pet정보를 가져오는 함수 만들기
+        // 2. 펫 정보로 펫 테이블을 만들기
         const getPets = async () => {
-            let petInfo = await fetch('/api/pets/me')     
-            return await petInfo.json()      
-        } 
-
+            let petInfo = await fetch('/api/pets/me')
+            return await petInfo.json()
+        }
         const petData = await getPets();
-        createPetTable(petData)  
-       
-       const getReservation = async () => {
-            let reservation = await fetch('/api/reservation/me')     
-            return await petInfo.json()      
-        } 
-
-        const reservaionData = await getReservation();
-        createPetTable(reservationData)  
+        createPetTable(petData)
     }
-   
     init();
-
-    
-
-
 include partials/footer.pug
 //- include partials/authModal.pug
-
