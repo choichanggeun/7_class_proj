@@ -66,10 +66,14 @@ router.get('/me', auth, async (req, res) => {
 //mypage.pug 에서 petName 가져옴
 router.get('/getPetName', auth, async (req, res) => {
   try {
-    const { userId } = req.session.user;
-    const user = await Users.findOne({ where: { userId } });
-    const petName = user.petName; // 추출된 값
-    console.log(user);
+    const { userId } = req.user;
+    const pet = await Pets.findOne({ where: { UserId: userId } });
+
+    if (!pet) {
+      res.status(404).json({ message: '해당 펫이 없습니다.' });
+      return;
+    }
+    const petName = pet.petName; //
     res.status(200).json({ petName });
   } catch (error) {
     console.error(error);

@@ -58,16 +58,71 @@ router.post('/', auth, async (req, res) => {
 router.get('/', auth, async (req, res, next) => {
   try {
     // petSitters 데이터를 가져옵니다 (예: 데이터베이스에서 조회)
-    const petSitters = await PetSitters.findAll();
+    const petSitter = await PetSitters.findAll();
     const pets = await Pets.findAll({ where: { UserId: req.user.userId } });
 
-    res.render('reservation', { pageTitle: 'reservation', petSitters, pets });
+    res.render('reservation', { pageTitle: 'reservation', petSitter, pets });
   } catch (err) {
     console.error(err);
     next(err);
   }
 });
 
+//myPage PetSitterName API요청 처리
+
+router.get('/getSitterName', auth, async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    // Reservation 테이블에서 petSitterId를 찾습니다.
+    const reservationInfo = await Reservations.findOne({
+      where: { UserId: userId },
+      attributes: ['PetSitterId'],
+    });
+
+    if (!reservationInfo) {
+      res.status(404).json({ message: '예약 정보를 찾을 수 없습니다.' });
+      return;
+    }
+
+    const petSitterId = reservationInfo.PetSitterId;
+    const petSitter = await PetSitters.findOne({ where: { petSitterId } });
+
+    if (!petSitter) {
+      res.status(404).json({ message: '해당 펫이 없습니다.' });
+      return;
+    }
+    const sitterNick = petSitter.sitterName;
+    res.status(200).json({ sitterNick });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: '오류가 발생하였습니다.' });
+  }
+});
+
+router.get('/getDate', auth, async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    // 해당 사용자의 예약 정보를 가져옵니다.
+    const reservationDate = await Reservations.findOne({
+      where: { UserId: userId },
+      attributes: ['startDate', 'endDate'],
+    });
+
+    if (!reservationDate) {
+      res.status(404).json({ message: '예약 정보를 찾을 수 없습니다.' });
+      return;
+    }
+
+    const startDate = reservationDate.startDate;
+    const endDate = reservationDate.endDate;
+    res.status(200).json({ startDate, endDate });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: '오류가 발생하였습니다.' });
+  }
+});
 // 예약 정보 조회
 router.get('/:reservationId', auth, async (req, res) => {
   const reservationId = req.params.reservationId;
