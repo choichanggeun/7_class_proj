@@ -1,0 +1,144 @@
+doctype html
+html
+    head
+        title #{pageTitle} | 리뷰등록
+           meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        
+            //- Bootstrap CSS
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css", integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T", crossorigin="anonymous")
+
+            //- Load jQuery
+        script(src="https://code.jquery.com/jquery-3.6.0.min.js", crossorigin="anonymous")
+
+            //- Bootstrap 4 scripts
+        script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js", integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN", crossorigin="anonymous")
+        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")
+        
+        style.
+            body {
+                min-height: 100vh;
+                background: -webkit-gradient(linear, left bottom, right top, from(#92b5db), to(#1d466c));
+                background: -webkit-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+                background: -o-linear-gradient(bottom left, #92b5db 0%, #1d466c 100%);
+                background: linear-gradient(to top right, #92b5db 0%, #1d466c 100%);
+            }
+            
+              .input-form {
+              max-width: 680px;
+              margin-top: 80px;
+              padding: 32px;
+              background: #fff;
+              -webkit-border-radius: 10px;
+              -moz-border-radius: 10px;
+              border-radius: 10px;
+              -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+              -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+              box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+            }
+
+            .modal-backdrop{
+                display:none;
+            }
+    body
+        .container
+            .input-form-backgroud.row
+                .input-form.col-md-12.mx-auto
+                    h4.mb-3 리뷰등록
+                    form.validation-form(method="post" action="/reviews" novalidate)
+                        .row
+                        .mb-3
+                            label(for="title") 리뷰 제목
+                            input(type="title", class="form-control", id="title", name="title", placeholder="시터를 추천합니다",autocomplete="title", required)
+                            .invalid-feedback 리뷰 제목을 입력해주세요.
+                        .mb-3
+                            label(for="content") 리뷰내용
+                            input(type="content", class="form-control", id="content", name="content",placeholder="시터를 칭찬해 주세요 악플은 마음의 상처가 됩니다",required)
+                            .invalid-feedback 내용을 입력해주세요.
+
+                         .mb-3
+                        label(for="petSitter") 펫 시터 선택
+                        select.form-control(name="petSitterId", id="petSitterId", required)
+                            each petSitter in petSitters
+                                option(value=petSitter.petSitterId) #{petSitter.sitterName}
+                        .invalid-feedback 펫 시터를 선택해주세요.
+                        button(type="button", class="btn btn-primary btn-lg", id="Reservation-button")  등록하기
+                        
+                        
+                            button(type="button", class="btn btn-primary btn-lg", id="Pets-button")  리뷰쓰기
+                            div.modal.fade#signin-success
+                            div.modal-dialog
+                            
+                        //-     .mb-3
+                        //-     label(for="rating") 별점
+                        //-     select.form-control(name="petSitterId", id="petSitterId", required)
+                        //-     each petSitter in petSitters
+                        //-         option(value=petSitter.petSitterId) #{petSitter.sitterName}
+                        //- .invalid-feedback 별점을 등록해주세요
+
+                     
+
+                        
+                            button(type="button", class="btn btn-primary btn-lg", id="Pets-button")  리뷰쓰기
+                            div.modal.fade#signin-success
+                            div.modal-dialog
+                             
+                               
+                               
+
+script.
+    $(document).ready(function() {
+        //모달 초기화 
+     $('#reviews-success').modal({
+        backdrop:'static',
+        keyboard: false,
+        show:false
+     });
+
+    //- 최소 검사 추가
+    $("#title").on('input', function () {
+        if ($(this).val() === "") {
+            $(this).addClass("invalid");
+        } else {
+            $(this).removeClass("invalid");
+        }
+    });
+        //-리뷰 버튼 클릭
+    $("#content").on('input', function () {
+        if ($(this).val() === "") {
+            $(this).addClass("invalid");
+        } else {
+            $(this).removeClass("invalid");
+        }
+    });
+   
+     $("#reviews-button").click(function() {
+            var title = $("#title").val();
+            var content = $("#content").val();
+        console.log(title, content)
+            if (!title || !content) {
+                alert("리뷰 제목과 내용을 입력해주세요.");
+                return false;
+            }
+           
+
+            //- Ajax 코드
+            $.ajax({
+                type: "POST",
+                url: "/api/reviews/posting",
+                data: $('.validation-form').serialize(),
+                success: function(response) {
+                            alert(response.message) 
+                        window.location.href = '/'       
+                },
+                
+                error: function(error) {
+                    alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+                    console.log(error)
+                }
+            });
+
+        });
+    });
+   
