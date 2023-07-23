@@ -43,12 +43,10 @@ html(lang="ko")
       .logo-container {
         height: 500px;
       }
-
       .allbox-container {
         width:100%;
         margin:0 auto;
        }
-
       .img-div {
         width: 400px;
         height: 300px;
@@ -133,13 +131,13 @@ html(lang="ko")
         height: 1120px;
         display: flex;
         justify-content: flex-end;
-        align-items: center; 
+        align-items: center;
       }
       .dog-div img {
         width: 400px;
         height: 400px;
         display: flex;
-        margin: auto; 
+        margin: auto;
         text-align:center;
         padding: 20px 0px 0px 0px;
       }
@@ -148,10 +146,9 @@ html(lang="ko")
         text-align:center;
         margin: 1rem 0rem;
       }
-
       .rounded-image {
-        border-radius: 10px; 
-        border: 1px solid navy; 
+        border-radius: 10px;
+        border: 1px solid navy;
       }
 body
     div.allbox-container
@@ -175,49 +172,56 @@ body
                 a.nav-link(href="/mypage") 마이페이지
                 li.nav-item
                 a.nav-link(href="/api/reviews") 리뷰등록
-                
-
-                views/home.pug
       div.logo-container
         div.img-div
           img(src="/images/logo.png", alt="")
-      div.sitter-div
-        div.sitter1-div
-          div.sitter1img-div
-            img(src="/images/sitter1.jpg", alt="", class="rounded-image")
-          div.sitter1text-div
-            p
-            p 펫시터 이름 : 최창근
-            p 펫시터 경력 : 10년 
-            p 펫시터 어필 : 제발 플리즈!! 저를 써주세요!!
-      div.sitter2-div
-        div.sitter2img-div
-          img(src="/images/sitter2.jpg", alt="", class="rounded-image")
-        div.sitter1text-div
-          p
-          p 펫시터 이름 : 이예진
-          p 펫시터 경력 : 2년차 
-          p 펫시터 어필 : 새내기 입니다 열정!!열정!!!
-
-      div.sitter3-div
-        div.sitter3img-div
-          img(src="/images/sitter3.jpg", alt="", class="rounded-image")
-        div.sitter1text-div
-          p
-          p 펫시터 이름 : 최낙민
-          p 펫시터 경력 : 5년차 
-          p 펫시터 어필 : 일을 잘하고 강아지와 소통할 줄 압니다 왈왈왈
-
-      div.sitter4-div
-        div.sitter4img-div
-          img(src="/images/sitter4.jpg", alt="", class="rounded-image")
-        div.sitter1text-div
-          p
-          p 펫시터 이름 : 박채원
-          p 펫시터 경력 : 15년차 
-          p 펫시터 어필 : 펫시터 달인입니다 고양이에 최적화입니다 하 악질 잘합니다 
-
-      div.dog-container 
-        div.dog-div
-          img(src="/images/dog.png", alt="")
-          
+div.sitter-div
+  div.sitter1-div
+    div.sitter1img-div
+      img(src="/images/sitter1.jpg", alt="", class="rounded-image")
+    div.sitter1text-div
+      p
+      p 펫시터 이름 : 최창근
+      p 펫시터 경력 : 10년
+      p 펫시터 어필 : 제발 플리즈!! 저를 써주세요!!
+    div.dog-button
+      button.btn.btn-primary(type="button") 리뷰쓰기
+div.sitter-spacing
+div.sitter-div
+  div.sitter2-div
+    div.sitter2img-div
+      img(src="/images/sitter2.jpg", alt="", class="rounded-image")
+    div.sitter1text-div
+      p
+      p 펫시터 이름 : 이예진
+      p 펫시터 경력 : 2년차
+      p 펫시터 어필 : 새내기 입니다 열정!!열정!!!
+    div.dog-button
+      button.btn.btn-primary(type="button") 리뷰쓰기
+div.sitter-spacing
+div.sitter-div
+  div.sitter3-div
+    div.sitter3img-div
+      img(src="/images/sitter3.jpg", alt="", class="rounded-image")
+    div.sitter1text-div
+      p
+      p 펫시터 이름 : 최낙민
+      p 펫시터 경력 : 5년차
+      p 펫시터 어필 : 일을 잘하고 강아지와 소통할 줄 압니다 왈왈왈
+    div.dog-button
+      button.btn.btn-primary(type="button") 리뷰쓰기
+div.sitter-spacing
+div.sitter-div
+  div.sitter4-div
+    div.sitter4img-div
+      img(src="/images/sitter4.jpg", alt="", class="rounded-image")
+    div.sitter1text-div
+      p
+      p 펫시터 이름 : 박채원
+      p 펫시터 경력 : 15년차
+      p 펫시터 어필 : 펫시터 달인입니다 고양이 하 악질 잘합니다
+    div.dog-button
+      button.btn.btn-primary(type="button") 리뷰쓰기
+  div.dog-container
+      div.dog-div
+        img(src="/images/dog.png", alt="")
