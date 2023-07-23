@@ -77,16 +77,6 @@ router.get('/getName', auth, async (req, res) => {
     return res.status(400).json({ message: '오류가 발생하였습니다.' });
   }
 });
-router.get('/getName', auth, async (req, res) => {
-  try {
-    const { userId } = req.session.user;
-    const user = await Users.findOne({ where: { userId } });
-    const nickname = user.nickname; // 추출된 값
-    console.log(user);
-    res.status(200).json({ nickname });
-  } catch (error) {
-    console.error(error);
-    return res.status(400).json({ message: '오류가 발생하였습니다.' });
-  }
-});
+
+
 module.exports = router;

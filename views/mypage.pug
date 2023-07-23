@@ -61,8 +61,8 @@ script.
                 </table>
             `
         }
-            //reservation 가져오기
-        const createNickTable = (getName) => {
+            //reservation 가져오기 
+      const createNickTable = (getName) => {
             const body = document.querySelector('body');
             body.innerHTML += `
             <h2>User name</h2>
@@ -94,6 +94,7 @@ script.
         //-     let getNick = await fetch('/api/users/getName')   
         //-     return await getNick.json()    
         //- }
+
         const getUserInfo = async () => {
                 let userInfo = await fetch('/api/users/me')
                 return await userInfo.json()
@@ -107,7 +108,8 @@ script.
             return await petInfo.json()
         }
         const petData = await getPets();
-        createPetTable(petData)
+
+        createPetTable(petData) 
     }
     init();
 
