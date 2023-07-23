@@ -53,12 +53,12 @@ html
                         label(for="pets") 펫  선택
                         select.form-control(name="petId", id="petId", required)
                             each pet in pets
-                                option(value=pets.id) #{pet.petName}
+                                option(value=pet.id) #{pet.petName}
                         .invalid-feedback 고객님에 펫을 선택해주세요.
                         .mb-3
                         label(for="petSitter") 펫 시터 선택
-                        select.form-control(name="petSitterId", id="petSitterId", required)
-                             each petSitter in petSitters
+                        select.form-control(name="petSitterId" id="petSitterId", required)
+                            each petSitter in petSitters
                                  option(value=petSitter.petSitterId) #{petSitter.sitterName}
                         .invalid-feedback 펫 시터를 선택해주세요.
                         button(type="button", class="btn btn-primary btn-lg", id="Reservation-button")  등록하기
@@ -102,7 +102,7 @@ script.
                 $(this).removeClass("invalid");
             }
         })
-        $("#PetSitter").on('input', function () {
+        $("#PetSitterId").on('input', function () {
             if ($(this).val() === "") {
                 $(this).addClass("invalid");
             } else {
@@ -110,11 +110,11 @@ script.
             }
         })
         $("#Reservation-button").click(function() {
-            var reservationDate = $("#reservationDate").val();
-            var reservationTime = $("#reservationTime").val();
-            var petName = $("#petName").val();
-            var petSitter = $("#petSitter").val();
-            if (reservationDate === "" || reservationTime === ""|| petName === ""|| petSitter === "") {
+            var startTime = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            var petId = $("#petId").val();
+            var petSitterId = $("#petSitterId").val();
+            if (startDate === "" || endDate === ""|| petId === ""|| petSitterId  === "") {
                 alert("예약 정보를 입력해주세요.");
                 return false;
             }
