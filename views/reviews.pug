@@ -56,13 +56,6 @@ html
                             label(for="content") 리뷰내용
                             input(type="content", class="form-control", id="content", name="content",placeholder="시터를 칭찬해 주세요 악플은 마음의 상처가 됩니다",required)
                             .invalid-feedback 내용을 입력해주세요.
-                            
-                        //-     .mb-3
-                        //-     label(for="rating") 별점
-                        //-     select.form-control(name="petSitterId", id="petSitterId", required)
-                        //-     each petSitter in petSitters
-                        //-         option(value=petSitter.petSitterId) #{petSitter.sitterName}
-                        //- .invalid-feedback 별점을 등록해주세요
 
                          .mb-3
                         label(for="petSitter") 펫 시터 선택
@@ -71,6 +64,15 @@ html
                                 option(value=petSitter.petSitterId) #{petSitter.sitterName}
                         .invalid-feedback 펫 시터를 선택해주세요.
                         button(type="button", class="btn btn-primary btn-lg", id="Reservation-button")  등록하기
+                            
+                        //-     .mb-3
+                        //-     label(for="rating") 별점
+                        //-     select.form-control(name="petSitterId", id="petSitterId", required)
+                        //-     each petSitter in petSitters
+                        //-         option(value=petSitter.petSitterId) #{petSitter.sitterName}
+                        //- .invalid-feedback 별점을 등록해주세요
+
+                     
 
                         
                             button(type="button", class="btn btn-primary btn-lg", id="Pets-button")  리뷰쓰기
