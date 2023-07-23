@@ -39,8 +39,9 @@ router.get('/pets/', (req, res) => {
 
 // 예약
 router.use('/api/reservation', reservationRouter);
+
 router.get('/reservaiton', (req, res) => {
-  res.render('reservaion', { pageTitle: '칠면조' });
+  res.render('reservation', { pageTitle: '칠면조' });
 });
 
 //리뷰 등록
