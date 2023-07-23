@@ -65,31 +65,55 @@ script.
                 </table>
             `
         }
-
-        const createPetTable = (reservationData) => {
+            //reservation 가져오기 
+      const createNickTable = (getName,getPetName) => {
             const body = document.querySelector('body');
             body.innerHTML += `
-            <h2>Reservation</h2>
+            <h2>User name</h2>
                 <table>
                 <tr>
+                    <th>nickname</th>
                     <th>petName</th>
-                    <th>petGender</th>
-                    <th>petAge</th>
                 </tr>
-                ${petData.pet.map((pet)=>{
-                    return `
-                     <tr>
-                    <td>${pet.petName}</td>
-                    <td>${pet.petGender}</td>
-                    <td>${pet.petAge}</td>
-                </tr>
-                    `
-                })}
-                          
+                <tr>
+                    <td>${getName.nickname}</td>
+                    <td>${getPetName.petName}</td>
+
+                </tr>            
                 </table>
             `
         }
-    
+            //1.users에서 myPage 안에 reservation조회 컬럼 중 user.nickname 값을 요청
+        const getNames = async () => {
+            let getNick = await fetch('/api/users/getName')     
+            return await getNick.json()      
+        } 
+
+        
+        const getName = await getNames();
+        createNickTable(getName)  
+        
+        
+
+        
+        
+            //pets에서 reservation안에 넣을 user.nickname 값을 요청
+        const getPetNames = async () => {
+            let getPetNick = await fetch('api/pets/getPetName')     
+            return await getPetNick.json()      
+        } 
+        
+            //- pets 함수 호출
+        const getPetName = await getPetNames();
+        createPetNickTable(getPetName)  
+        
+        
+        //-     //users에서 reservation안에 넣을 user.nickname 값을 요청
+        //- const getNames = async () => {
+        //-     let getNick = await fetch('/api/users/getName')     
+        //-     return await getNick.json()      
+        //- } 
+
 
         const getUserInfo = async () => {
                 let userInfo = await fetch('/api/users/me')     
@@ -111,13 +135,6 @@ script.
         const petData = await getPets();
         createPetTable(petData)  
        
-       const getReservation = async () => {
-            let reservation = await fetch('/api/reservation/me')     
-            return await petInfo.json()      
-        } 
-
-        const reservaionData = await getReservation();
-        createPetTable(reservationData)  
     }
    
     init();
