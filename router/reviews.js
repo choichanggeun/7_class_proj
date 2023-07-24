@@ -4,7 +4,7 @@ const { Reservation, Reviews } = require('../models');
 const auth = require('../middlewares/auth');
 
 //리뷰 작성하기
-router.post('/', auth, async (req, res) => {
+router.post('/:reservationId', auth, async (req, res) => {
   const { reservationId } = req.params;
 
   const { title, content, rating, PetSitterId, UserId } = req.body;
