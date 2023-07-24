@@ -143,4 +143,21 @@ router.get('/getSitterName', auth, async (req, res) => {
 });
 
 
+ router.get('/me', auth, async (req, res) => {
+  try {
+    const Reviewinfo = await Reviews.findAll({});
+/*     if (!Reviewinfo.length) {
+      return res.status(400).json({
+        errorMessage: '존재하지 않는 리뷰입니다.',
+      });
+    } */
+    res.status(200).json({ data: Reviewinfo });
+  } catch (error) {
+    res.status(400).json({
+      errorMessage: error.message,
+    });
+  }
+});  
+
+
 module.exports = router;
