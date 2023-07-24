@@ -135,6 +135,54 @@ script.
         const petData = await getPets();
 
         createPetTable(petData) 
+
+        //크레이터테이블
+        const createReviewTable = (getReview, sitternameData, getReviewName) => {
+            const body = document.querySelector('body');
+            body.innerHTML += `
+            <h2>Review</h2>
+                <table>
+                <tr>
+                    <th>nickname</th>
+                    <th>sitterName</th>
+                    <th>title</th>
+                    <th>content</th>
+                    <th>rating</th>
+                </tr>
+                <tr>
+                    <td>${getReviewName.nickname}</td>
+                    <td>${sitternameData.sitterNick}</td>
+                    <td>${getReview.data[0].title}</td>
+                    <td>${getReview.data[0].content}</td>
+                    <td>${getReview.data[0].rating}</td>
+                </tr>
+                </table>
+            `
+        }
+        //에서 review안에 넣을 user.nickname 값을 요청
+        const getReviews = async () => {
+            let Reviewinfo = await fetch('/api/reviews/me')
+            //console.log(await Reviewinfo.json())
+            const data = await Reviewinfo.json()
+            console.log("Review",data) 
+            return data 
+        }
+
+        const getReviewNames = async () => {
+            let getReviewName = await fetch('/api/users/getName')
+            return await getReviewName.json()
+        }
+
+        const getSitterName = async () => {
+            let getSitterName = await fetch('/api/reviews/getSitterName')
+            return await getSitterName.json()
+        }
+
+        const sitternameData = await getSitterName();
+        const getReviewName = await getReviewNames();
+        const getReview = await getReviews();
+        console.log(getReview, sitternameData, getReviewName)
+        createReviewTable(getReview, sitternameData, getReviewName);
     }
     init();
 
