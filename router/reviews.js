@@ -111,4 +111,36 @@ return;
   }
 });
 
+
+router.get('/getSitterName', auth, async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    // Reservation 테이블에서 petSitterId를 찾습니다
+    const reservationInfo = await Reservations.findOne({
+      where: { UserId: userId },
+      attributes: ['PetSitterId'],
+    });
+
+    if (!reservationInfo) {
+      res.status(404).json({ message: '예약 정보를 찾을 수 없습니다.' });
+      return;
+    }
+
+    const petSitterId = reservationInfo.PetSitterId;
+    const petSitter = await PetSitters.findOne({ where: { petSitterId } });
+
+    if (!petSitter) {
+      res.status(404).json({ message: '해당 펫이 없습니다.' });
+      return;
+    }
+    const sitterNick = petSitter.sitterName;
+    res.status(200).json({ sitterNick });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ errorMessage: error.message });
+  }
+});
+
+
 module.exports = router;
