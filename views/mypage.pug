@@ -50,79 +50,63 @@ script.
                     <th>petAge</th>
                 </tr>
                 ${petData.pet.map((pet)=>{
-                    return `
-                     <tr>
-                    <td>${pet.petName}</td>
-                    <td>${pet.petGender}</td>
-                    <td>${pet.petAge}</td>
-                </tr>
-                    `
+                    return `<tr><td>${pet.petName}</td><td>${pet.petGender}</td><td>${pet.petAge}</td></tr>`              
                 })}
                 </table>
             `
         }
             //reservation 가져오기 
-        const createNickTable = (getName,getPetName,sitterNickData) => {
+        const createReservationTable = (userReservations) => {
             const body = document.querySelector('body');
-            body.innerHTML += `
-            <h2>Reservation Info</h2>
-                <table>
-                <tr>
-                    <th>유저명</th>
-                    <th>나의 반려동물</th>
-                    <th>예약한 시터 성명</th>
-                    <th>예약 일자</th>
-                    <th>예약 종료 일자</th>
-                </tr>
-                
-                <tr>
-                <td>${getName.nickname}</td>
-                <td>${getPetName.petName}</td>
-                <td>${sitterNickData.sitterNick}</td>
-                <td>${reservationDate.startDate}</td>
-                <td>${reservationDate.endDate}</td>
-                </tr>
-                </table>
-            `
+            
+            let reservationsBodyHTML = '';
+
+           userReservations.map((reservation)=>{
+            reservationsBodyHTML += `                  
+                    <tr>
+                    <td>${reservation.User.nickname}</td>
+                    <td>${reservation.PetSitter.sitterName}</td>
+                    <td>${reservation.Pet.petName}</td>
+                    <td>${reservation.startDate}</td>
+                    <td>${reservation.endDate}</td>
+                    </tr>                    
+                    `
+            })
+
+            let reservationHTML = `
+                   <h2>Reservation Info</h2>
+                        <table>
+                        <tr>
+                            <th>유저명</th>
+                            <th>나의 반려동물</th>
+                            <th>예약한 시터 성명</th>
+                            <th>예약 일자</th>
+                            <th>예약 종료 일자</th>
+                        </tr>
+                        
+                        <tbody class="reservationsBody">
+                            ${reservationsBodyHTML}
+                        </tbody>
+                        </table>
+                     `
+
+           body.innerHTML += reservationHTML;
+
+          
         }
+
             //users에서 reservation안에 넣을 user.nickname 값을 요청
-            const getNames = async () => {
-            let getNick = await fetch('/api/users/getName')
-            return await getNick.json()
+        const userReservations = async () => {
+            const reservations = await fetch('/api/reservation/me')
+            return await reservations.json()
         }
+
+        const userReservationsData = await userReservations();      
+        createReservationTable(userReservationsData.userReservations);
 
         
             //users에서 reservation안에 넣을 pets.petName 값을 요청
-            const getPetName = async () => {
-                let getPetNick = await fetch('/api/pets/getPetName')
-                return await getPetNick.json()
-        }
-
-        
-            //마이페이지에서 reservation안에 넣을 pets.petName 값을 요청
-            const getSitterName = async () => {
-                let getSitterNick = await fetch('/api/reservation/getSitterName')
-                return await getSitterNick.json()
-        }
-                 //마이페이지에서 reservation안에 넣을 pets.petName 값을 요청
-            const getDate = async () => {
-                let getRevDate = await fetch('/api/reservation/getDate')
-                return await getRevDate.json()
-        }
-
-        
-
-
-
-
-            const getName = await getNames();
-            const getPet = await getPetName();
-            const sitterNickData = await getSitterName();
-            const reservationDate = await getDate();
-            
-            createNickTable(getName, getPet, sitterNickData)
-
-
+      
       
        
         //-     //users에서 reservation안에 넣을 user.nickname 값을 요청
@@ -157,4 +141,3 @@ script.
     
 include partials/footer.pug
 //- include partials/authModal.pug
-//- ㅎㅎㅎ

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const { Reservations, Pets, PetSitters } = require('../models');
+const { Reservations, Pets, PetSitters, Users } = require('../models');
 
 // 예약 등록
 router.post('/', auth, async (req, res) => {
@@ -65,6 +65,24 @@ router.get('/', auth, async (req, res, next) => {
   } catch (err) {
     console.error(err);
     next(err);
+  }
+});
+
+// 사용자의 모든 예약 확인
+router.get('/me', auth, async (req, res, next) => {
+  try {
+    const { userId: UserId } = req.user;
+
+    const userReservations = await Reservations.findAll({
+      include: [{ model: Pets }, { model: Users }, { model: PetSitters }],
+      where: { UserId },
+      order: [['startDate', 'DESC']],
+    });
+
+    res.json({ userReservations });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error');
   }
 });
 
